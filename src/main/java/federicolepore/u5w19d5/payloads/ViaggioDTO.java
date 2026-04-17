@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Size;
 import java.time.LocalDate;
 
 public record ViaggioDTO(
+        // la tentazione era troppa
         @NotBlank(message = "Dovrà pur esserci dove si vuole andare, tipo Pizzo Calabro")
         String destinazione,
 

@@ -6,7 +6,6 @@ import jakarta.validation.constraints.Size;
 
 public record DipendenteDTO(
         @NotBlank(message = "Dai sceglilo anche stupido, tutti in ufficio ne hanno uno, basta che metti qualcosa...")
-        @Size(min = 2, max = 8, message = "Non farla troppo lunga, bastano 8 caratteri")
         String username,
 
         @NotBlank(message = "Bisogna che ci dici chi sei, non puoi lasciare una stringa vuota")
