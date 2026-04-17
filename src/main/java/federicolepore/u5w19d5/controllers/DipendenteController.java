@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.UUID;
@@ -68,7 +69,15 @@ public class DipendenteController {
     }
 
 
-    // 6 - PATCH
+    // 6 - PATCH http://localhost:3002/dipendenti/{dipendentiId}/avatar
+    @PatchMapping("/{dipendenteId}/avatar")
+    public Dipendente uploadAvatar(@RequestParam("profile_picture") MultipartFile file, @PathVariable UUID dipendenteId) {
+        System.out.println(file.getContentType());
+        System.out.println(file.getOriginalFilename());
+        System.out.println(file.getSize());
+
+        return this.dipendenteService.avatarUpload(file, dipendenteId);
+    }
 
 
 }

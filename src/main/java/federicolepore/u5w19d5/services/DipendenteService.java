@@ -1,6 +1,7 @@
 package federicolepore.u5w19d5.services;
 
 import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import federicolepore.u5w19d5.entities.Dipendente;
 import federicolepore.u5w19d5.exceptions.BadRequestException;
 import federicolepore.u5w19d5.exceptions.NotFoundException;
@@ -12,7 +13,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.util.Map;
 import java.util.UUID;
 
 @Slf4j
@@ -81,6 +85,27 @@ public class DipendenteService {
         Dipendente d = this.findById(dipendenteId);
         this.dipendenteRepository.delete(d);
     }
+
+    //6
+    public Dipendente avatarUpload(MultipartFile file, UUID dipendenteId) {
+
+        // eventuali controlli da cercare se rimane tmepo
+        Dipendente uploadD = this.findById(dipendenteId);
+        String url;
+        try {
+            Map result = cloudinaryUploader.uploader().upload(file.getBytes(), ObjectUtils.emptyMap());
+            url = (String) result.get("secure_url");
+            System.out.println(url);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        uploadD.setAvatarUrl(url);
+        dipendenteRepository.save(uploadD);
+
+        return uploadD;
+    }
+
 
 }
 
