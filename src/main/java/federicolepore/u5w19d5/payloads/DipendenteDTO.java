@@ -17,7 +17,10 @@ public record DipendenteDTO(
         String cognome,
 
         @NotBlank(message = "E come pensi che dovremmo contattarti per il viaggio? Ci vuoi andare o no?! Allora non lasciare una stringa vuota")
-        @Email(message = "L'email inserita non è nel formato corretto, inseriscila bene")
+
+        @Email(regexp = "^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$",
+                message = "L'email inserita non è nel formato corretto, inseriscila bene")
+        // @Email(message = "L'email inserita non è nel formato corretto, inseriscila bene")
         String email
 ) {
 }

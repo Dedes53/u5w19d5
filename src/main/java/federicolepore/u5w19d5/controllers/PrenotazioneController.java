@@ -12,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/prenotazioni")
@@ -44,6 +45,25 @@ public class PrenotazioneController {
                                               @RequestParam(defaultValue = "10") int size,
                                               @RequestParam(defaultValue = "nome") String sortBy) {
         return this.prenotazioneService.findAll(page, size, sortBy);
+    }
+
+    // 3 - GET http://localhost:3002/dipendenti/{prenotazioneId}
+    @GetMapping("/{prenotazioneId}")
+    public Prenotazione getById(@PathVariable UUID prenotazioneId) {
+        return this.prenotazioneService.findById(prenotazioneId);
+    }
+
+    // 4 - PUT http://localhost:3002/dipendenti/{prenotazioneId}+ @RequestBody
+    @PutMapping("/{prenotazioneId}")
+    public Prenotazione getByIdAndUpdate(@PathVariable UUID prenotazioneId, @RequestBody PrenotazioneDTO body) {
+        return this.prenotazioneService.findByIdAndUpdate(prenotazioneId, body);
+    }
+
+    // 5 - DELETE http://localhost:3002/dipendenti/{prenotazioneId}
+    @DeleteMapping("/{prenotazioneId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void getByIdAndDelete(@PathVariable UUID prenotazioneId) {
+        this.prenotazioneService.getByIdAndDelete(prenotazioneId);
     }
 
 

@@ -4,6 +4,7 @@ import federicolepore.u5w19d5.entities.Dipendente;
 import federicolepore.u5w19d5.entities.Prenotazione;
 import federicolepore.u5w19d5.entities.Viaggio;
 import federicolepore.u5w19d5.exceptions.BadRequestException;
+import federicolepore.u5w19d5.exceptions.NotFoundException;
 import federicolepore.u5w19d5.payloads.PrenotazioneDTO;
 import federicolepore.u5w19d5.repositories.PrenotazioneRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +13,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -56,5 +59,32 @@ public class PrenotazioneService {
         return this.prenotazioneRepository.findAll(pageable);
 
     }
+
+    //3
+    public Prenotazione findById(UUID prenotazioneId) {
+        return this.prenotazioneRepository.findById(prenotazioneId).orElseThrow(() -> new NotFoundException(prenotazioneId));
+    }
+
+    //4
+    public Prenotazione findByIdAndUpdate(UUID prenotazioneId, PrenotazioneDTO body) {
+        Prenotazione p = this.findById(prenotazioneId);
+
+        p.setDipendente(dipendenteService.findById(body.dipendente()));
+        p.setPreferenze(body.preferenze());
+        p.setViaggio(viaggioService.findById(body.viaggio()));
+
+        Prenotazione updatedP = this.prenotazioneRepository.save(p);
+
+        log.info("La prenotazione " + updatedP.getPrenotazioneID() + " è stata modificata con successo");
+        return updatedP;
+    }
+
+
+    //5
+    public void getByIdAndDelete(UUID prenotazioneId) {
+        Prenotazione p = this.findById(prenotazioneId);
+        this.prenotazioneRepository.delete(p);
+    }
+
 
 }
