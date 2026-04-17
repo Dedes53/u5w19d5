@@ -55,6 +55,27 @@ public class DipendenteService {
         return this.dipendenteRepository.findById(dipendenteID).orElseThrow(() -> new NotFoundException(dipendenteID));
     }
 
+    //4
+    public Dipendente findByIdAndUpdate(UUID dipendenteId, DipendenteDTO body) {
+        Dipendente d = this.findById(dipendenteId);
+
+        if (!d.getEmail().equals(body.email())) {
+            if (this.dipendenteRepository.existsByEmail(body.email()))
+                throw new BadRequestException("L'indirizzo email " + body.email() + " è già associato ad un altro dipendente");
+        }
+
+        d.setUsername(body.username());
+        d.setNome(body.nome());
+        d.setCognome(body.cognome());
+        d.setEmail(body.email());
+        d.setAvatarUrl("https://ui-avatars.com/api?name=" + body.nome() + "+" + body.cognome());
+
+        Dipendente updatedD = this.dipendenteRepository.save(d);
+
+        log.info("Il dipendente " + updatedD.getDipendenteID() + " è stato modificato con successo");
+        return updatedD;
+    }
+
 }
 
 

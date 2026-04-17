@@ -54,6 +54,11 @@ public class DipendenteController {
         return this.dipendenteService.findById(dipendenteId);
     }
 
+    // 4 - PUT http://localhost:3002/dipendenti/{dipendentiId} + @RequestBody
+    @PutMapping("/{dipendenteId}")
+    public Dipendente getByIdAndUpdate(@PathVariable UUID dipendenteId, @RequestBody DipendenteDTO body) {
+        return this.dipendenteService.findByIdAndUpdate(dipendenteId, body);
+    }
 }
 
 
