@@ -5,6 +5,7 @@ import federicolepore.u5w19d5.exceptions.ValidationException;
 import federicolepore.u5w19d5.payloads.NewPrenotazioneDTO;
 import federicolepore.u5w19d5.payloads.PrenotazioneDTO;
 import federicolepore.u5w19d5.services.PrenotazioneService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -35,6 +36,14 @@ public class PrenotazioneController {
         }
         Prenotazione newP = this.prenotazioneService.save(body);
         return new NewPrenotazioneDTO(newP.getPrenotazioneID());
+    }
+
+    // 2 - GET  http://localhost:3002/prenotazioni
+    @GetMapping
+    public Page<Prenotazione> getPrenotazioni(@RequestParam(defaultValue = "0") int page,
+                                              @RequestParam(defaultValue = "10") int size,
+                                              @RequestParam(defaultValue = "nome") String sortBy) {
+        return this.prenotazioneService.findAll(page, size, sortBy);
     }
 
 
