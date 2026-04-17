@@ -76,6 +76,12 @@ public class DipendenteService {
         return updatedD;
     }
 
+    //5
+    public void getByIdAndDelete(UUID dipendenteId) {
+        Dipendente d = this.findById(dipendenteId);
+        this.dipendenteRepository.delete(d);
+    }
+
 }
 
 

@@ -59,6 +59,18 @@ public class DipendenteController {
     public Dipendente getByIdAndUpdate(@PathVariable UUID dipendenteId, @RequestBody DipendenteDTO body) {
         return this.dipendenteService.findByIdAndUpdate(dipendenteId, body);
     }
+
+    // 5 - DELETE http://localhost:3002/dipendenti/{dipendentiId}
+    @DeleteMapping("/{dipendenteId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void getByIdAndDelete(@PathVariable UUID dipendenteId) {
+        this.dipendenteService.getByIdAndDelete(dipendenteId);
+    }
+
+
+    // 6 - PATCH
+
+
 }
 
 

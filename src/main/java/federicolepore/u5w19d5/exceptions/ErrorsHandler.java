@@ -37,7 +37,7 @@ public class ErrorsHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorsDTO handleGenerric(Exception ex) {
         ex.printStackTrace();
-        return new ErrorsDTO("Scusa, stavolta colpa mia, vedo si sitemare", LocalDateTime.now());
+        return new ErrorsDTO("Scusa, stavolta colpa mia, vedo di sistemare", LocalDateTime.now());
     }
 
 }
