@@ -27,6 +27,14 @@ public class Dipendente {
     private String nome;
     private String cognome;
     private String email;
+    private String avatarUrl;
 
 
+    public Dipendente(String username, String nome, String cognome, String email) {
+        this.username = username;
+        this.nome = nome;
+        this.cognome = cognome;
+        this.email = email;
+        this.avatarUrl = "https://ui-avatars.com/api?name=" + nome + "+" + cognome;
+    }
 }

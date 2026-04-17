@@ -24,12 +24,12 @@ public class Viaggio {
     @Setter(AccessLevel.NONE)
     private UUID viaggioID;
 
-    private String destinazone;
+    private String destinazione;
     private LocalDate data;
     private String stato;   // in_programma/completato
 
-    public Viaggio(String destinazone, LocalDate data, String stato) {
-        this.destinazone = destinazone;
+    public Viaggio(String destinazione, LocalDate data, String stato) {
+        this.destinazione = destinazione;
         this.data = data;
         this.stato = stato;
     }
